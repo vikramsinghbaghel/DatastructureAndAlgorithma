@@ -28,7 +28,9 @@ public class LinkedListDriver {
 
 		mylist.insertAt("cow", 0);
 		mylist.insertAt("sheep", 1);
-		mylist.insertAt("deer", 5);
+
+		mylist.insertAt("vikram", 2);
+
 		mylist.insertAt("goat", mylist.size() - 1);
 		list = mylist.toString();
 		log.info(list);

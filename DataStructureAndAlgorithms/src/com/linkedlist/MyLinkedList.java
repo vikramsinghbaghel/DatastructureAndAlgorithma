@@ -2,10 +2,20 @@ package com.linkedlist;
 
 import java.util.logging.Logger;
 
-public class MyLinkedList<X> {
-	private Node first;
-	private Node last;
+public class MyLinkedList<X> extends Commonmethods<X> {
+
+	private Node<X> first;
+	private Node<X> last;
 	private int nodeCount;
+
+	public Node<X> getFirst() {
+		return first;
+	}
+
+	public void setFirst(Node<X> first) {
+		this.first = first;
+	}
+
 	static Logger log = Logger.getLogger("MylinkedList");
 
 	public MyLinkedList() {
@@ -16,10 +26,10 @@ public class MyLinkedList<X> {
 
 	public void insert(X item) {
 		if (first == null) {
-			first = new Node(item);
+			first = new Node<>(item);
 			last = first;
 		} else {
-			Node newLastNode = new Node(item);
+			Node<X> newLastNode = new Node<>(item);
 			last.next = newLastNode;
 			last = last.next;
 		}
@@ -47,9 +57,9 @@ public class MyLinkedList<X> {
 			return;
 		}
 
-		Node currentNode = first;
+		Node<X> currentNode = first;
 		if (position == 0) {
-			Node newnode = new Node(item);
+			Node<X> newnode = new Node<>(item);
 			newnode.next = currentNode;
 			first = newnode;
 		}
@@ -59,7 +69,7 @@ public class MyLinkedList<X> {
 				currentNode = currentNode.next;
 			}
 
-			Node newNode = new Node(item);
+			Node<X> newNode = new Node<>(item);
 			newNode.next = currentNode.next;
 			currentNode.next = newNode;
 
@@ -75,8 +85,8 @@ public class MyLinkedList<X> {
 			if (position == 0) {
 				return delete();
 			} else {
-				Node currentNode = first;
-				Node previousNode = first;
+				Node<X> currentNode = first;
+				Node<X> previousNode = first;
 				for (int i = 0; i < position && currentNode.next != null; i++) {
 					previousNode = currentNode;
 					currentNode = currentNode.next;
@@ -95,12 +105,16 @@ public class MyLinkedList<X> {
 
 	}
 
+	public void reverse() {
+		first = super.reverse(first);
+	}
+
 	public X getcenterNode() {
 		int position = size() / 2;
 		if (first == null) {
 			throw new IllegalStateException("The Linked list is empty ");
 		}
-		Node currentNode = first;
+		Node<X> currentNode = first;
 		for (int i = 0; i < size() && currentNode != null; i++) {
 			if (i == position) {
 				return currentNode.item;
@@ -112,22 +126,9 @@ public class MyLinkedList<X> {
 		return null;
 	}
 
-	public void reverse() {
-		Node curnode = first;
-		Node prenode = null;
-		Node nxnode = null;
-		while (curnode != null) {
-			nxnode = curnode.next;
-			curnode.next = prenode;
-			prenode = curnode;
-			curnode = nxnode;
-		}
-		first = prenode;
-	}
-
 	public String toString() {
 		StringBuilder contents = new StringBuilder();
-		Node currentNode = first;
+		Node<X> currentNode = first;
 		while (currentNode != null) {
 			contents.append(currentNode.item);
 			currentNode = currentNode.next;
@@ -141,18 +142,6 @@ public class MyLinkedList<X> {
 
 	public int size() {
 		return nodeCount;
-	}
-
-	// inner class which will provide the node..
-	private class Node {
-		private X item;
-		private Node next;
-
-		public Node(X userData) {
-			this.next = null;
-			this.item = userData;
-		}
-
 	}
 
 }
