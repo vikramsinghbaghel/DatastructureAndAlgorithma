@@ -193,11 +193,9 @@ public class MyTree<T extends Comparable<T>> {
 	public void printDeptFirst() {
 		System.out.println("Inorder traversal: ");
 		printInorder(root);
-		System.out.println();
-		System.out.println("preorder traversal: ");
+		System.out.println("\npreorder traversal: ");
 		printPreorder(root);
-		System.out.println();
-		System.out.println("postorder traversal: ");
+		System.out.println("\npostorder traversal: ");
 		printPostorder(root);
 
 	}
