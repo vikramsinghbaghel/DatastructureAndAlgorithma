@@ -1,6 +1,6 @@
 package com.mainpack;
 
-import com.linkedListImplementationOfQueue.MyQueue;
+import com.linkedlistimplementationofqueue.MyQueue;
 
 public class QueueDriver {
 
@@ -22,7 +22,7 @@ public class QueueDriver {
 		queue.display();
 		queue.dequeue();
 		queue.display();
-		System.out.println(queue.tail.item);
+		System.out.println(queue.getTail().getItem());
 		System.out.println(queue.peek());
 		System.out.println("Queue Contains or not : " + queue.contains("nine"));
 		System.out.println("Queue size : " + queue.size());
@@ -31,7 +31,7 @@ public class QueueDriver {
 		queue.enqueue("eleven");
 		queue.dequeue();
 		queue.display();
-		System.out.println(queue.tail.item);
+		System.out.println(queue.getTail().getItem());
 		System.out.println(queue.peek());
 
 	}

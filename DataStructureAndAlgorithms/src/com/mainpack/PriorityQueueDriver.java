@@ -1,6 +1,6 @@
 package com.mainpack;
 
-import com.linkedListImplementationOfQueue.PriorityQueue;
+import com.linkedlistimplementationofqueue.PriorityQueue;
 
 public class PriorityQueueDriver {
 
@@ -19,7 +19,8 @@ public class PriorityQueueDriver {
 		mypqueue.insert("kitten", 9);
 		mypqueue.insert("Hamster", 6);
 		mypqueue.insert("tropical fish", 3);
-		mypqueue.insert("me", 0);
+		mypqueue.insert("Lion");
+
 		mypqueue.delete();
 		mypqueue.display();
 		System.out.println();

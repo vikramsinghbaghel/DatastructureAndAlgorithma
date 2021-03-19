@@ -61,7 +61,7 @@ public class LinkedListDriver {
 		list = mylist.toString();
 		log.info(list);
 
-		String value = mylist.getcenterNode();
+		String value = mylist.getCenterNode();
 		log.info("the center node is :");
 		log.info(value);
 

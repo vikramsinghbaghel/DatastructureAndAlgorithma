@@ -2,10 +2,9 @@ package com.linkedlistimplementationofstack;
 
 import java.util.logging.Logger;
 
-import com.linkedlist.Commonmethods;
 import com.linkedlist.Node;
 
-public class MyStack<X> extends Commonmethods<X> {
+public class MyStack<X> {
 	static Logger log = Logger.getLogger("MyStack");
 	private Node<X> top;
 
@@ -26,7 +25,7 @@ public class MyStack<X> extends Commonmethods<X> {
 	public void push(X data) {
 
 		Node<X> newnode = new Node<>(data);
-		newnode.next = top;
+		newnode.setNext(top);
 		top = newnode;
 		count++;
 
@@ -37,8 +36,8 @@ public class MyStack<X> extends Commonmethods<X> {
 			log.info("Stack underflow ");
 			return null;
 		} else {
-			X value = top.item;
-			top = top.next;
+			X value = top.getItem();
+			top = top.getNext();
 			count--;
 			return value;
 		}
@@ -52,7 +51,7 @@ public class MyStack<X> extends Commonmethods<X> {
 
 	public X peek() {
 		if (!isEmpty()) {
-			return top.item;
+			return top.getItem();
 		} else {
 			log.info("Stack is empty : ");
 			return null;
@@ -60,11 +59,24 @@ public class MyStack<X> extends Commonmethods<X> {
 	}
 
 	public void reverse() {
-		top = super.reverse(top);
+		Node<X> curnode = top;
+		Node<X> prenode = null;
+		Node<X> nxnode = null;
+		while (curnode != null) {
+			nxnode = curnode.getNext();
+			curnode.setNext(prenode);
+			prenode = curnode;
+			curnode = nxnode;
+		}
+		top = prenode;
 	}
 
 	public boolean contains(X value) {
-		return super.contains(value, top);
+		Node<X> temp = top;
+		while (temp.getItem() != value && temp.getNext() != null) {
+			temp = temp.getNext();
+		}
+		return temp.getItem() == value;
 	}
 
 	public int size() {
@@ -78,13 +90,13 @@ public class MyStack<X> extends Commonmethods<X> {
 			return;
 		} else {
 			Node<X> temp = top;
-			while (temp.next != null) {
+			while (temp.getNext() != null) {
 
-				System.out.print(temp.item + ", ");
-				temp = temp.next;
+				System.out.print(temp.getItem() + ", ");
+				temp = temp.getNext();
 			}
 
-			System.out.println(temp.item);
+			System.out.println(temp.getItem());
 		}
 	}
 

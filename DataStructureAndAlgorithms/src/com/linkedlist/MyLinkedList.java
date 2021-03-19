@@ -2,7 +2,7 @@ package com.linkedlist;
 
 import java.util.logging.Logger;
 
-public class MyLinkedList<X> extends Commonmethods<X> {
+public class MyLinkedList<X> {
 
 	private Node<X> first;
 	private Node<X> last;
@@ -30,8 +30,8 @@ public class MyLinkedList<X> extends Commonmethods<X> {
 			last = first;
 		} else {
 			Node<X> newLastNode = new Node<>(item);
-			last.next = newLastNode;
-			last = last.next;
+			last.setNext(newLastNode);
+			last = last.getNext();
 		}
 		nodeCount++;
 	}
@@ -43,14 +43,14 @@ public class MyLinkedList<X> extends Commonmethods<X> {
 
 		}
 
-		X deletedItem = first.item;
+		X deletedItem = first.getItem();
 
-		first = first.next;
+		first = first.getNext();
 		nodeCount--;
 		return deletedItem;
 	}
 
-	public void insertAt(X item, int position) throws NullPointerException {
+	public void insertAt(X item, int position) {
 
 		if (size() < position || position < 0) {
 			log.info("This element can not be added to the list because the position provided is invalid  ");
@@ -60,18 +60,18 @@ public class MyLinkedList<X> extends Commonmethods<X> {
 		Node<X> currentNode = first;
 		if (position == 0) {
 			Node<X> newnode = new Node<>(item);
-			newnode.next = currentNode;
+			newnode.setNext(currentNode);
 			first = newnode;
 		}
 
 		else {
-			for (int i = 1; i < position && currentNode.next != null; i++) {
-				currentNode = currentNode.next;
+			for (int i = 1; i < position && currentNode.getNext() != null; i++) {
+				currentNode = currentNode.getNext();
 			}
 
 			Node<X> newNode = new Node<>(item);
-			newNode.next = currentNode.next;
-			currentNode.next = newNode;
+			newNode.setNext(currentNode.getNext());
+			currentNode.setNext(newNode);
 
 		}
 		nodeCount++;
@@ -87,12 +87,12 @@ public class MyLinkedList<X> extends Commonmethods<X> {
 			} else {
 				Node<X> currentNode = first;
 				Node<X> previousNode = first;
-				for (int i = 0; i < position && currentNode.next != null; i++) {
+				for (int i = 0; i < position && currentNode.getNext() != null; i++) {
 					previousNode = currentNode;
-					currentNode = currentNode.next;
+					currentNode = currentNode.getNext();
 				}
-				X nodeItem = currentNode.item;
-				previousNode.next = currentNode.next;
+				X nodeItem = currentNode.getItem();
+				previousNode.setNext(currentNode.getNext());
 				nodeCount--;
 				return nodeItem;
 			}
@@ -106,10 +106,19 @@ public class MyLinkedList<X> extends Commonmethods<X> {
 	}
 
 	public void reverse() {
-		first = super.reverse(first);
+		Node<X> curnode = first;
+		Node<X> prenode = null;
+		Node<X> nxnode = null;
+		while (curnode != null) {
+			nxnode = curnode.getNext();
+			curnode.setNext(prenode);
+			prenode = curnode;
+			curnode = nxnode;
+		}
+		first = prenode;
 	}
 
-	public X getcenterNode() {
+	public X getCenterNode() {
 		int position = size() / 2;
 		if (first == null) {
 			throw new IllegalStateException("The Linked list is empty ");
@@ -117,10 +126,10 @@ public class MyLinkedList<X> extends Commonmethods<X> {
 		Node<X> currentNode = first;
 		for (int i = 0; i < size() && currentNode != null; i++) {
 			if (i == position) {
-				return currentNode.item;
+				return currentNode.getItem();
 			}
 
-			currentNode = currentNode.next;
+			currentNode = currentNode.getNext();
 		}
 
 		return null;
@@ -130,8 +139,8 @@ public class MyLinkedList<X> extends Commonmethods<X> {
 		StringBuilder contents = new StringBuilder();
 		Node<X> currentNode = first;
 		while (currentNode != null) {
-			contents.append(currentNode.item);
-			currentNode = currentNode.next;
+			contents.append(currentNode.getItem());
+			currentNode = currentNode.getNext();
 
 			if (currentNode != null) {
 				contents.append(", ");
